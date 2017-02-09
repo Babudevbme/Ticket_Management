@@ -10,7 +10,7 @@
 <h2>User Login</h2><hr>
 	<form action="userLogin" method="GET">
 		<br>EmailId : <input  type="text" name="emailid" required autofocus /><br>
-	   <br> Password : <input type="password" name="password" required/><br>
+	   <br> Password : <input type="password" name="password" required /><br>
 		<br><button style="background-color:yellow" type="submit">Submit</button>
 
 	</form>

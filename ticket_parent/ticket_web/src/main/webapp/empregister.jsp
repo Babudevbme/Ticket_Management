@@ -4,18 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
-<h2>User Registration</h2><hr>
-<form action="userregister"method="get">
-<br>Enter Name:<input type="text" name="name"><br>
-<br>Enter Email ID:<input type="text" name="emailId"><br>
-<br>Enter password:<input type="password" name="password"><br>
-<br><button type="submit" >submit</button>
-${error}
-
-</form>
-
-
+hi
 </body>
 </html>

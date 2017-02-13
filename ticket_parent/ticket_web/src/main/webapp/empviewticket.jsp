@@ -7,11 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
-<body>
+<body >
 	<form action="/empviewticket">
-		Employee Id <input type="text" name="empid" required value="${empLogin.id }">
-		<button type="submit">Submit</button>
+		<input type="hidden" name="empid" required value="${empLogin.id }">
+		<h3 style="text-align:center"><button  type="submit">Click Here to View Tickets</button></h3>
 
 	</form>
 	<h3 style="color:green;">Ticket</h3>

@@ -8,10 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body> 
+<body style="text-align:center"> 
 <form action="/viewsolution">
 	<h3 style="color:green;">Solutions</h3>
-	EmpId :<input type="number" name="empId" required value="${empLogin.id }">
+	<input type="hidden" name="empId" required value="${empLogin.id }">
 	<button type="submit" name="submit">Click Here to View Solutions</button>
 	</form>
 		<table border="1">
@@ -40,7 +40,7 @@
 	<br> ViewTicket:
 	<a href="../empviewticket.jsp">closeticket</a>
 	</br> UpdateTicket:
-	<a href="../replyticket.jsp">createticket</a>
+	<a href="../replyticket.jsp">Replyticket</a>
 	</br> ReplyTicket:
 	<a href="../replyticket.jsp">updateticket</a>
 

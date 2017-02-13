@@ -15,6 +15,7 @@ import com.ticket.dao.TicketDetailtDAO;
 import com.ticket.exception.ValidatorException;
 import com.ticket.model.Department;
 import com.ticket.model.Employee;
+import com.ticket.model.Role;
 import com.ticket.model.Solution;
 import com.ticket.model.Transaction;
 import com.ticket.model.User;
@@ -26,11 +27,11 @@ import com.ticket.service.UserSevice;
 @RequestMapping("/")
 public class TicketDetailController {
 	User user = new User();
-	Solution issue=new Solution();
+	Solution issue = new Solution();
 	Transaction transaction = new Transaction();
 	TicketDetailService ticketService = new TicketDetailService();
 	UserSevice userService = new UserSevice();
-	EmployeeService empService=new EmployeeService();
+	EmployeeService empService = new EmployeeService();
 	Department dept = new Department();
 	Employee emp = new Employee();
 	TicketDetailtDAO dao = new TicketDetailtDAO();
@@ -38,19 +39,18 @@ public class TicketDetailController {
 	//
 	@GetMapping("/userLogin")
 	public String userLogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
-			ModelMap modelMap,HttpSession session) throws ValidationException {
-		System.out.println("hi");
+			ModelMap modelMap, HttpSession session) throws ValidationException {
+		User user = new User();
 		user.setEmailId(emailid);
 		user.setPassword(password);
-		System.out.println(user.getEmailId());
 		try {
-			if (userService.login(user) != null){
-			session.setAttribute("login",userService.login(user));
-			System.out.println(userService.login(user));
-			return "loginsuccess.jsp";}
+			if (userService.login(user) != null) {
+				session.setAttribute("login", userService.login(user));
+				return "loginsuccess.jsp";
 			}
+		}
 
-		 catch (Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 
@@ -62,6 +62,7 @@ public class TicketDetailController {
 	@GetMapping("/userregister")
 	public String userregister(@RequestParam("name") String name, @RequestParam("emailId") String emailId,
 			@RequestParam("password") String password, ModelMap modelMap) {
+		User user = new User();
 		user.setEmailId(emailId);
 		user.setPassword(password);
 		user.setName(name);
@@ -82,6 +83,7 @@ public class TicketDetailController {
 	public String createticket(@RequestParam("userid") int userid, @RequestParam("departmentname") String deptname,
 			@RequestParam("subject") String sub, @RequestParam("description") String desc,
 			@RequestParam("priority") String priority, ModelMap modelMap) {
+		User user = new User();
 		user.setId(userid);
 		transaction.setUsers(user);
 		dept.setName(deptname);
@@ -104,7 +106,6 @@ public class TicketDetailController {
 
 	@GetMapping("/viewticket")
 	public String viewTicket(@RequestParam("userId") int userId, ModelMap modelMap) {
-		User user=new User();
 		List<Transaction> transactionList = ticketService.listByUserIdService(userId);
 		modelMap.addAttribute("list", transactionList);
 		return "viewticket.jsp";
@@ -116,7 +117,6 @@ public class TicketDetailController {
 		transaction.setId(ticketid);
 		user.setId(userid);
 		transaction.setUsers(user);
-		System.out.println("hi");
 		try {
 			if (ticketService.closeTicketServer(transaction) != null) {
 				System.out.println(transaction);
@@ -124,7 +124,6 @@ public class TicketDetailController {
 			}
 
 		} catch (ValidationException e) {
-			System.out.println("bye");
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e);
 		}
@@ -134,51 +133,47 @@ public class TicketDetailController {
 
 	@GetMapping("/updateticket")
 	public String updateticket(@RequestParam("ticketid") int ticketid, @RequestParam("userid") int userid,
-			@RequestParam("subject") String subject, @RequestParam("description") String description,ModelMap modelMap) 
-	{
+			@RequestParam("subject") String subject, @RequestParam("description") String description,
+			ModelMap modelMap) {
+		User user = new User();
 		transaction.setId(ticketid);
 		user.setId(userid);
 		transaction.setUsers(user);
 		transaction.setSubject(subject);
 		transaction.setDesc(description);
-		System.out.println("hi");
 		try {
 			if (ticketService.updateByUserService(transaction) != null) {
-				System.out.println(transaction);
 				return "viewticket.jsp";
 			}
 
 		} catch (ValidationException e) {
-			System.out.println("bye");
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e);
 		}
 		return "updateticket.jsp";
 
 	}
+
 	@GetMapping("/employeelogin")
-	public String employeelogin(@RequestParam("emailid") String emailid,@RequestParam("password") String password,
-			ModelMap modelMap,HttpSession session)
-	{
-		System.out.println("hi");
+	public String employeelogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
+			ModelMap modelMap, HttpSession session) {
 		emp.setEmailId(emailid);
 		emp.setPassword(password);
-		System.out.println(emailid);
 		try {
-			if (empService.login(emp) != null){
-			System.out.println(empService.login(emp));
-			session.setAttribute("empLogin",empService.login(emp));
-				return "success.jsp";}
+			if (empService.login(emp) != null) {
+				session.setAttribute("empLogin", empService.login(emp));
+				return "success.jsp";
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 		}
 		return "employeelogin.jsp";
-		}
+	}
+
 	@GetMapping("/assignticket")
-public String assignticket(@RequestParam("ticketid") int ticketId,@RequestParam("empid") int empId)
-{
+	public String assignticket(@RequestParam("ticketid") int ticketId, @RequestParam("empid") int empId) {
 		transaction.setId(ticketId);
 		emp.setId(empId);
 		transaction.setEmployee(emp);
@@ -189,66 +184,96 @@ public String assignticket(@RequestParam("ticketid") int ticketId,@RequestParam(
 			e.printStackTrace();
 			return "assignticket.jsp";
 
-		}}
-		
+		}
+	}
+
 	@GetMapping("/replyticket")
-	public String Replyticket(@RequestParam("ticketid")int ticketid,@RequestParam("solution") String solution)
-	{
+	public String Replyticket(@RequestParam("ticketid") int ticketid, @RequestParam("solution") String solution) {
 		transaction.setId(ticketid);
 		issue.setTransaction(transaction);
 		issue.setSolution(solution);
-		try{
-		if(ticketService.replyTicketService(issue)!=null){
-		return "/viewsolution.jsp";}
+		try {
+			if (ticketService.replyTicketService(issue) != null) {
+				return "/viewsolution.jsp";
+			}
+		} catch (Exception e) {
+
 		}
-		catch(Exception e){
-			
-		}
-		return"replyticket.jsp";
-		
+		return "replyticket.jsp";
+
 	}
-	
+
 	@GetMapping("/empviewticket")
-	public String empView(@RequestParam("empid")int empid,ModelMap modelMap){
+	public String empView(@RequestParam("empid") int empid, ModelMap modelMap) {
 		emp.setId(empid);
 		transaction.setEmployee(emp);
 		List<Transaction> empTransactionList = ticketService.listByEmpIdService(transaction);
 		modelMap.addAttribute("emplist", empTransactionList);
 		return "empviewticket.jsp";
+	}
+
+	@GetMapping("/empupdate") /* reply.jsp */
+	public String updateticket(@RequestParam("ticketid") int ticketId, @RequestParam("empid") int empId,
+			@RequestParam("solution") String solution) {
+		emp.setId(empId);
+		transaction.setId(ticketId);
+		issue.setEmployee(emp);
+		issue.setTransaction(transaction);
+		issue.setSolution(solution);
+		try {
+			if (ticketService.updateSolutionService(issue) != null) {
+				return ("viewsolution.jsp");
+			}
+		} catch (Exception e) {
 		}
-	@GetMapping("/empupdate")/*reply.jsp*/
-	public String updateticket(@RequestParam("ticketid") int ticketId,@RequestParam("empid") int empId,
-			@RequestParam("solution") String solution){
-				emp.setId(empId);
-				transaction.setId(ticketId);
-				issue.setEmployee(emp);
-				issue.setTransaction(transaction);
-				issue.setSolution(solution);
-				try
-				{
-				if(ticketService.updateSolutionService(issue)!=null)
-				{
-					return ("viewsolution.jsp");
-				}}
-				catch(Exception e){
-					}
-				return( "replyticket.jsp");
+		return ("replyticket.jsp");
 
 	}
+
 	@GetMapping("/viewsolution")
-	public String viewsolution(@RequestParam("empId")int empId,ModelMap modelMap)
+	public String viewsolution(@RequestParam("empId") int empId, ModelMap modelMap) {
+		List<Solution> solutionList = ticketService.solutionList(empId);
+		modelMap.addAttribute("solutionlist", solutionList);
+		return "viewsolution.jsp";
+	}
+
+	@GetMapping("/empregister")
+	public String empRegister(@RequestParam("deptId") int deptId, @RequestParam("roleId") int roleId,
+			@RequestParam("name") String name, @RequestParam("emailId") String emailId,
+			@RequestParam("password") String password) {
+		EmployeeService empService = new EmployeeService();
+		Role role = new Role();
+		Employee emp = new Employee();
+
+		dept.setId(deptId);
+		role.setId(roleId);
+		emp.setDepartment(dept);
+		emp.setRole(role);
+		emp.setName(name);
+		emp.setEmailId(emailId);
+		emp.setPassword(password);
+		try {
+			empService.registerService(emp);
+			return ("success.jsp");
+		} catch (Exception e) {
+			return ("/empregister.jsp");
+		}
+	}
+
+	@GetMapping("/deleteticket")
+	public String delete(@RequestParam("empId")int empId,@RequestParam("ticketId")int ticketId)
 	{
-		System.out.println(empId);
-	List<Solution> solutionList=ticketService.solutionList(empId);
-	modelMap.addAttribute("solutionlist", solutionList);
-	return"viewsolution.jsp";
-	} 
-		
+		Transaction transaction = new Transaction();
+          transaction.setId(ticketId);
+          emp.setId(empId);
+          transaction.setEmployee(emp);
+		try
+		{ticketService.delete(empId, ticketId);
+		return("success.jsp"); 
+		}
+		catch(Exception e){
+		}
+		return ("/deleteticket");
 }
 
-
-
-
-
-
-
+}

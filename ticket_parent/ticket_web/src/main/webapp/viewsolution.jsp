@@ -6,12 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>View solution</title>
 </head>
 <body style="text-align:center"> 
 <form action="/viewsolution">
 	<h3 style="color:green;">Solutions</h3>
-	<input type="hidden" name="empId" required value="${empLogin.id }">
+	<h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
+		<input type="hidden" name="empId" required value="${empLogin.id }">
 	<button type="submit" name="submit">Click Here to View Solutions</button>
 	</form>
 		<table border="1">

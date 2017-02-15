@@ -1,5 +1,5 @@
 
-<!DOCTYPE html
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,10 +13,11 @@
 <body style="text-align: center">
 
 	<h1>Ticket Generation</h1>
-	<hr>
+    <h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
+	
 	<br>
 	<form action="../createticket" method="GET">
-		User Id : <input type="hidden" name="userid" placeholder="user Id"required value="${login.id }" /> 
+		 <input type="hidden" name="userid" placeholder="user Id"required value="${login.id }" /> 
 		Department:<select name="departmentname">
 			<option value="HR">HR</option>
 			<option value="Finance">Finance</option>

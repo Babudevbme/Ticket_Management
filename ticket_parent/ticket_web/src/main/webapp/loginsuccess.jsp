@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body style="text-align:center;">
-<h3>Welcome ${login.name}</h3>
-<h2 style="color:green;"> Login successfull</h2><hr>
- <br>CreateTicket : <a href="../createticket.jsp">CreateTicket</a><br>
+<h2 style="color:green;"> Login successfull</h2>
+ <h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
+ <h3 style="text-align:left;">Welcome ${login.name}!!!</h3>
+  <br>CreateTicket : <a href="../createticket.jsp">CreateTicket</a><br>
  <br>UpdateTicket :<a href="../updateticket.jsp">UpdateTicket</a><br>
  <br>CloseTicket  :<a href="../closeticket.jsp">CloseTicket</a><br>
- <br>ViewTicket   :<a href="../viewticket.jsp">ViewTicket</a>
+ <br>ViewTicket   :<a href="../viewticket.jsp">ViewTicket</a><br>
 </body>
 </html>

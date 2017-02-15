@@ -22,6 +22,7 @@ import com.ticket.model.User;
 import com.ticket.service.EmployeeService;
 import com.ticket.service.TicketDetailService;
 import com.ticket.service.UserSevice;
+import com.ticket.util.MailUtil;
 
 @Controller
 @RequestMapping("/")
@@ -32,7 +33,6 @@ public class TicketDetailController {
 	TicketDetailService ticketService = new TicketDetailService();
 	UserSevice userService = new UserSevice();
 	EmployeeService empService = new EmployeeService();
-	Department dept = new Department();
 	Employee emp = new Employee();
 	TicketDetailtDAO dao = new TicketDetailtDAO();
 
@@ -45,7 +45,7 @@ public class TicketDetailController {
 		user.setPassword(password);
 		try {
 			if (userService.login(user) != null) {
-				session.setAttribute("login", userService.login(user));
+				session.setAttribute("login",userService.login(user));
 				return "loginsuccess.jsp";
 			}
 		}
@@ -82,8 +82,10 @@ public class TicketDetailController {
 	@GetMapping("/createticket")
 	public String createticket(@RequestParam("userid") int userid, @RequestParam("departmentname") String deptname,
 			@RequestParam("subject") String sub, @RequestParam("description") String desc,
-			@RequestParam("priority") String priority, ModelMap modelMap) {
+			@RequestParam("priority") String priority, ModelMap modelMap) throws Exception {
 		User user = new User();
+		Transaction transaction = new Transaction();
+		Department dept = new Department();
 		user.setId(userid);
 		transaction.setUsers(user);
 		dept.setName(deptname);
@@ -93,6 +95,8 @@ public class TicketDetailController {
 		transaction.setPriority(priority);
 		try {
 			ticketService.createticketService(transaction);
+//			MailUtil.sendSimpleMail("sudharsan13ece110@gmail.com",userid,sub);
+
 			return "viewticket.jsp";
 
 		} catch (ValidatorException e) {
@@ -244,7 +248,7 @@ public class TicketDetailController {
 		EmployeeService empService = new EmployeeService();
 		Role role = new Role();
 		Employee emp = new Employee();
-
+		Department dept = new Department();
 		dept.setId(deptId);
 		role.setId(roleId);
 		emp.setDepartment(dept);
@@ -275,5 +279,10 @@ public class TicketDetailController {
 		}
 		return ("/deleteticket");
 }
-
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return ("index.jsp");
+		
+	}
 }

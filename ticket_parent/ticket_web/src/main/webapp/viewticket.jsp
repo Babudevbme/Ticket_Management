@@ -16,9 +16,10 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Ticket Details</title>
 
+
 </head>
 <body>
-
+	<h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
 	<form action="/viewticket">
 		 <input type="hidden" name="userId" required value="${login.id}">
 		<h3 style="text-align:center"><button type="submit">Click To View Ticket</button></h3>

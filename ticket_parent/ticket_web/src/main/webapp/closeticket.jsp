@@ -13,7 +13,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title> Close Ticket</title>
 </head>
-<h3>Close Ticket</h3><hr>
+<h3>Close Ticket</h3>
+ <h4 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h4><hr>
+<br>
 <body style="text-align:center">
 <form action="../closeticket" method="get">
 Ticket Id:<input type="number" name="ticketid"  required autofocus>

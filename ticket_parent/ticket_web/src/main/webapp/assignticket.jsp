@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body><center>
-<h3>Employee Assign To Ticket</h3><hr>
+<h3>Employee Assign To Ticket</h3>
+ <h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
 <form action="../assignticket" method="get">
-Ticket Id: <input type="number" name="ticketid" autofocus required>
+<br>Ticket Id: <input type="number" name="ticketid" autofocus required>
 Employee Id: <input type="number" name="empid" required  ><br>
 <br><h4> <button style="background-color:yellow" type="submit" >submit</button> </h4>
 </form>

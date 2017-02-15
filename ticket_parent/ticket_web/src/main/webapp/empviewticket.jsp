@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>VeiwTicket</title>
 </head>
 <body >
+    <h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
 	<form action="/empviewticket">
 		<input type="hidden" name="empid" required value="${empLogin.id }">
 		<h3 style="text-align:center"><button  type="submit">Click Here to View Tickets</button></h3>

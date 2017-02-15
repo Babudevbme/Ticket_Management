@@ -7,7 +7,8 @@
 <title>Reply Ticket</title>
 </head>
 <body style="text-align:center">
-<h3>Reply Ticket</h3><hr><br>
+<h3>Reply Ticket</h3>
+<h3 style="text-align:right;">Logout: <a href="../logout" >Logout</a></h3><hr>
 <form action="../replyticket" method="get">
 Ticket Id: <input type="number" name="ticketid" autofocus required><br>
 <br><br>Solution :<input type="text" name="solution" required><br>

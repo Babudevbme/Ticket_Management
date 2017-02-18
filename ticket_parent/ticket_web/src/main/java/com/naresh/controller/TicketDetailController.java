@@ -36,7 +36,7 @@ public class TicketDetailController {
 	Employee emp = new Employee();
 	TicketDetailtDAO dao = new TicketDetailtDAO();
 
-	//
+
 	@GetMapping("/userLogin")
 	public String userLogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
 			ModelMap modelMap, HttpSession session) throws ValidationException {
@@ -95,7 +95,7 @@ public class TicketDetailController {
 		transaction.setPriority(priority);
 		try {
 			ticketService.createticketService(transaction);
-//			MailUtil.sendSimpleMail("sudharsan13ece110@gmail.com",userid,sub);
+			MailUtil.sendSimpleMail("sakthiselvam969@gmail.com",userid,sub);
 
 			return "viewticket.jsp";
 
@@ -277,7 +277,7 @@ public class TicketDetailController {
 		}
 		catch(Exception e){
 		}
-		return ("/deleteticket");
+		return ("/deleteticket.jsp");
 }
 	@GetMapping("/logout")
 	public String logout(HttpSession session){

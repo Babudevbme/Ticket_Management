@@ -2,16 +2,19 @@ package com.naresh.controller;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ticket.dao.TicketDetailtDAO;
+import com.ticket.dao.ITicketDetailDAO;
+import com.ticket.dao.TicketDetailDAO;
 import com.ticket.exception.ValidatorException;
 import com.ticket.model.Department;
 import com.ticket.model.Employee;
@@ -23,18 +26,18 @@ import com.ticket.service.EmployeeService;
 import com.ticket.service.TicketDetailService;
 import com.ticket.service.UserSevice;
 import com.ticket.util.MailUtil;
-
 @Controller
 @RequestMapping("/")
 public class TicketDetailController {
 	User user = new User();
 	Solution issue = new Solution();
 	Transaction transaction = new Transaction();
-	TicketDetailService ticketService = new TicketDetailService();
+	@Autowired
+	TicketDetailService ticketService ;//= new TicketDetailService();
 	UserSevice userService = new UserSevice();
 	EmployeeService empService = new EmployeeService();
 	Employee emp = new Employee();
-	TicketDetailtDAO dao = new TicketDetailtDAO();
+	ITicketDetailDAO dao = new TicketDetailDAO();
 
 
 	@GetMapping("/userLogin")

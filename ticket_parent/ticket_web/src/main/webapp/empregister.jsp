@@ -7,7 +7,7 @@
 <title>Employee Register</title>
 </head>
 <body>
-	<form action="/empregister" method="get">
+	<form action="../Employee/empregister" method="get">
 		Name :<input type="text" name="name" autofocus required> Email
 		Id :<input type="email" name="emailId" required> 
 		Password :<input type="password" name="password" required> 

@@ -1,4 +1,4 @@
-package com.naresh.controller;
+package com.ticket.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

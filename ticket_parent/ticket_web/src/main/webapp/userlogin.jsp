@@ -8,7 +8,7 @@
 </head>
 <body style="text-align:center" >
 <h2>User Login</h2><hr>
-	<form action="../userLogin" method="get" >
+	<form action="../User/userLogin" method="get" >
 
 		<br>EmailId : <input  type="text" name="emailid" required autofocus /><br>
 	   <br> Password : <input type="password" name="password" required /><br>

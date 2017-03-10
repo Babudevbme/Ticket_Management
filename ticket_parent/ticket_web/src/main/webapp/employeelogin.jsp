@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Employee login</title>
 </head>
 <body style="text-align:center">
 <h2>Employee Login</h2><hr>
-	<form action="../employeelogin" method="get">
+	<form action="/Employee/employeelogin" method="get">
 		<br>EmailId : <input  type="text" name="emailid" required autofocus /><br>
 	   <br> Password : <input type="password" name="password" required /><br>
 		<br><button style="background-color:yellow" type="submit">Submit</button>

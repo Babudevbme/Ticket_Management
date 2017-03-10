@@ -1,8 +1,7 @@
-package com.naresh.controller;
+package com.ticket.controller;
 
 import java.util.List;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ticket.dao.ITicketDetailDAO;
-import com.ticket.dao.TicketDetailDAO;
 import com.ticket.exception.ValidatorException;
 import com.ticket.model.Department;
 import com.ticket.model.Employee;
@@ -32,55 +29,8 @@ public class TicketDetailController {
 	User user = new User();
 	Solution issue = new Solution();
 	Transaction transaction = new Transaction();
-	@Autowired
-	TicketDetailService ticketService ;//= new TicketDetailService();
-	UserSevice userService = new UserSevice();
-	EmployeeService empService = new EmployeeService();
-	Employee emp = new Employee();
-	ITicketDetailDAO dao = new TicketDetailDAO();
-
-
-	@GetMapping("/userLogin")
-	public String userLogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
-			ModelMap modelMap, HttpSession session) throws ValidationException {
-		User user = new User();
-		user.setEmailId(emailid);
-		user.setPassword(password);
-		try {
-			if (userService.login(user) != null) {
-				session.setAttribute("login",userService.login(user));
-				return "loginsuccess.jsp";
-			}
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
-
-		}
-		return "userlogin.jsp";
-
-	}
-
-	@GetMapping("/userregister")
-	public String userregister(@RequestParam("name") String name, @RequestParam("emailId") String emailId,
-			@RequestParam("password") String password, ModelMap modelMap) {
-		User user = new User();
-		user.setEmailId(emailId);
-		user.setPassword(password);
-		user.setName(name);
-
-		try {
-			if (userService.registerService(user) != null)
-				return "userlogin.jsp";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("error", e.getMessage());
-		}
-		return "userregister.jsp";
-
-	}
+@Autowired
+	TicketDetailService ticketService;
 
 	@GetMapping("/createticket")
 	public String createticket(@RequestParam("userid") int userid, @RequestParam("departmentname") String deptname,
@@ -161,26 +111,10 @@ public class TicketDetailController {
 
 	}
 
-	@GetMapping("/employeelogin")
-	public String employeelogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
-			ModelMap modelMap, HttpSession session) {
-		emp.setEmailId(emailid);
-		emp.setPassword(password);
-		try {
-			if (empService.login(emp) != null) {
-				session.setAttribute("empLogin", empService.login(emp));
-				return "success.jsp";
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
-		}
-		return "employeelogin.jsp";
-	}
 
 	@GetMapping("/assignticket")
 	public String assignticket(@RequestParam("ticketid") int ticketId, @RequestParam("empid") int empId) {
+		Employee emp = new Employee();
 		transaction.setId(ticketId);
 		emp.setId(empId);
 		transaction.setEmployee(emp);
@@ -212,6 +146,7 @@ public class TicketDetailController {
 
 	@GetMapping("/empviewticket")
 	public String empView(@RequestParam("empid") int empid, ModelMap modelMap) {
+		Employee emp = new Employee();
 		emp.setId(empid);
 		transaction.setEmployee(emp);
 		List<Transaction> empTransactionList = ticketService.listByEmpIdService(transaction);
@@ -222,7 +157,8 @@ public class TicketDetailController {
 	@GetMapping("/empupdate") /* reply.jsp */
 	public String updateticket(@RequestParam("ticketid") int ticketId, @RequestParam("empid") int empId,
 			@RequestParam("solution") String solution) {
-		emp.setId(empId);
+		Employee emp = new Employee();
+         emp.setId(empId);
 		transaction.setId(ticketId);
 		issue.setEmployee(emp);
 		issue.setTransaction(transaction);
@@ -244,32 +180,10 @@ public class TicketDetailController {
 		return "viewsolution.jsp";
 	}
 
-	@GetMapping("/empregister")
-	public String empRegister(@RequestParam("deptId") int deptId, @RequestParam("roleId") int roleId,
-			@RequestParam("name") String name, @RequestParam("emailId") String emailId,
-			@RequestParam("password") String password) {
-		EmployeeService empService = new EmployeeService();
-		Role role = new Role();
-		Employee emp = new Employee();
-		Department dept = new Department();
-		dept.setId(deptId);
-		role.setId(roleId);
-		emp.setDepartment(dept);
-		emp.setRole(role);
-		emp.setName(name);
-		emp.setEmailId(emailId);
-		emp.setPassword(password);
-		try {
-			empService.registerService(emp);
-			return ("success.jsp");
-		} catch (Exception e) {
-			return ("/empregister.jsp");
-		}
-	}
-
 	@GetMapping("/deleteticket")
 	public String delete(@RequestParam("empId")int empId,@RequestParam("ticketId")int ticketId)
 	{
+		Employee emp = new Employee();
 		Transaction transaction = new Transaction();
           transaction.setId(ticketId);
           emp.setId(empId);

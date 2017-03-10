@@ -1,4 +1,4 @@
-package com.naresh.model;
+package com.ticket.model;
 
 import lombok.Data;
 
